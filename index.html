@@ -62,7 +62,7 @@
               <div class="row-content">
                 <div class="list-group-item-heading">{{task.name}}</div>
                 <div class="least-content">
-                  <button class="btn btn-xs btn-primary" ng-click="markAsDone($index)">Done</button>
+                  <button class="btn btn-xs btn-primary" ng-hide="task.markedAsDone" ng-click="markAsDone($index)">Mark as done</button>
                   <button class="btn btn-xs btn-danger" ng-click="delete($index)">Delete</button>
                 </div>
                 <p class="text-muted list-group-item-text">Created: {{task.createdTime}}</p>

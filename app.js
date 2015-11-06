@@ -27,12 +27,20 @@ tasksApp.factory('TaskService', ['localStorageService', function(localStorageSer
     }
   };
   
+  service.markTaskAsDone = function(taskIndex) {
+    var taskList = service.getTasksList();
+    
+    taskList[taskIndex].markedAsDone = true;
+    
+    localStorageService.set('tasks', taskList);
+  };
+  
   service.removeTask = function(taskPosition) {
     var tasksList = service.getTasksList();
     
-    taskList = taskList.splice(taskPosition, 1);
+    tasksList = tasksList.splice(taskPosition, 1);
     
-    localStorageService.set('tasks', taskList);
+    localStorageService.set('tasks', tasksList);
   };
   
   return service;
@@ -56,6 +64,16 @@ tasksApp.controller('MainCtrl', ['$scope', 'TaskService', function($scope, TaskS
       TaskService.saveTask($scope.task);
       controller.updateTaskList();
     }
+  };
+  
+  $scope.markAsDone = function(index) {
+    TaskService.markTaskAsDone(index);
+    controller.updateTaskList();
+  };
+  
+  $scope.delete = function(index) {
+    TaskService.removeTask(index);
+    controller.updateTaskList();
   };
   
   controller.updateTaskList();
