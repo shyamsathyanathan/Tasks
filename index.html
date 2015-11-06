@@ -56,12 +56,18 @@
             <!-- List of tasks -->
             <li class="list-group-item" ng-repeat="task in tasks">
               <div class="row-action-primary">
-                <i class="mdi-action-assignment"></i>
+                <i ng-hide="task.markedAsDone" class="mdi-action-assignment"></i>
+                <i ng-show="task.markedAsDone" class="mdi-action-done"></i>
               </div>
               <div class="row-content">
-                <div class="least-content">{{task.createdTime}}</div>
                 <div class="list-group-item-heading">{{task.name}}</div>
+                <div class="least-content">
+                  <button class="btn btn-xs btn-primary" ng-click="markAsDone($index)">Done</button>
+                  <button class="btn btn-xs btn-danger" ng-click="delete($index)">Delete</button>
+                </div>
+                <p class="text-muted list-group-item-text">Created: {{task.createdTime}}</p>
               </div>
+              <div class="list-group-separator"></div>
             </li>
           </ul>
         </div>
