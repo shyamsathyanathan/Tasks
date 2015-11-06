@@ -1,4 +1,11 @@
-var tasksApp = angular.module('Tasks', []);
+var tasksApp = angular.module('TasksApp', ['LocalStorageModule']);
+
+tasksApp.config(function(localStorageServiceProvider) {
+  localStorageServiceProvider
+  .setPrefix('tasks-app')
+  .setStorageType('localStorage')
+  .setNotify(true, true);
+});
 
 tasksApp.factory('TaskService', ['localStorageService', function(localStorageService) {
   
@@ -42,7 +49,7 @@ tasksApp.controller('MainCtrl', ['$scope', 'TaskService', function($scope, TaskS
     $scope.tasks = TaskService.getTasksList() || [];
   };
   
-  controller.createTask = function() {
+  $scope.createTask = function() {
     if($scope.task !== {}) {
       $scope.task.createdTime = new Date();
       $scope.task.markedAsDone = false;
@@ -50,5 +57,7 @@ tasksApp.controller('MainCtrl', ['$scope', 'TaskService', function($scope, TaskS
       controller.updateTaskList();
     }
   };
+  
+  controller.updateTaskList();
   
 }]);
