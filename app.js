@@ -38,7 +38,7 @@ tasksApp.factory('TaskService', ['localStorageService', function(localStorageSer
   service.removeTask = function(taskPosition) {
     var tasksList = service.getTasksList();
     
-    tasksList = tasksList.splice(taskPosition, 1);
+    tasksList.splice(taskPosition, 1);
     
     localStorageService.set('tasks', tasksList);
   };
